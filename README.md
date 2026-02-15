@@ -6,5 +6,5 @@ on utility bills, school fees, and savings patterns. To ensure safety and regula
 system operates as a “Loan Officer Copilot” rather than a fully autonomous lender; it provides risk
 reports and recommended decisions, allowing high scorers (80–100) to access instant loans up to KSh
 250,000 while reducing guarantor requirements for others. Crucially, every decision is delivered with
-a clear explanation in Swahili or English, ensuring that the AI remains transparent and accessible
+a clear explanation in  English, ensuring that the AI remains transparent and accessible
 to every member.
