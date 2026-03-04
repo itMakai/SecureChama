@@ -8,21 +8,32 @@ export default function Sidebar() {
   const role = auth?.user?.role;
 
   return (
-    <div className="w-64 bg-white border-r p-6">
-      <h2 className="text-xl font-bold mb-8">SecureChama</h2>
+    <aside className="w-64 border-r border-gray-200 bg-white p-6">
+      <div className="mb-8">
+        <h2 className="text-xl font-bold text-gray-900">SecureChama</h2>
+        <p className="mt-1 text-xs text-gray-500">SACCO Workspace</p>
+      </div>
 
-      <ul className="space-y-4 text-sm">
-        <li className="hover:text-black cursor-pointer">Dashboard</li>
+      <ul className="space-y-2 text-sm">
+        <li className="cursor-pointer rounded-lg px-3 py-2 font-medium text-gray-700 transition hover:bg-indigo-50 hover:text-indigo-700">
+          Dashboard
+        </li>
 
-        {(role === "ADMIN" || role === "MANAGER") && (
+        {(role === "platform_admin" || role === "sacco_admin" || role === "loan_officer") && (
           <>
-            <li className="hover:text-black cursor-pointer">Members</li>
-            <li className="hover:text-black cursor-pointer">Loans</li>
+            <li className="cursor-pointer rounded-lg px-3 py-2 font-medium text-gray-700 transition hover:bg-indigo-50 hover:text-indigo-700">
+              Members
+            </li>
+            <li className="cursor-pointer rounded-lg px-3 py-2 font-medium text-gray-700 transition hover:bg-indigo-50 hover:text-indigo-700">
+              Loans
+            </li>
           </>
         )}
 
-        <li className="hover:text-black cursor-pointer">Savings</li>
+        <li className="cursor-pointer rounded-lg px-3 py-2 font-medium text-gray-700 transition hover:bg-indigo-50 hover:text-indigo-700">
+          Savings
+        </li>
       </ul>
-    </div>
+    </aside>
   );
 }

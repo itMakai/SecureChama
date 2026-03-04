@@ -1,10 +1,12 @@
 from rest_framework.routers import DefaultRouter
+from django.urls import path
 from .views import (
     SaccoViewSet,
     MemberProfileViewSet,
     SavingsAccountViewSet,
     SavingsTransactionViewSet,
-    LoanViewSet
+    LoanViewSet,
+    AnalyticsOverviewView,
 )
 
 router = DefaultRouter()
@@ -15,3 +17,6 @@ router.register(r'savings-transactions', SavingsTransactionViewSet)
 router.register(r'loans', LoanViewSet)
 
 urlpatterns = router.urls
+urlpatterns += [
+    path('analytics/overview/', AnalyticsOverviewView.as_view(), name='analytics-overview'),
+]

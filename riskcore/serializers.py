@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.db.models import Sum
 from .models import (
     Sacco, MemberProfile,
     SavingsAccount, SavingsTransaction,
@@ -13,9 +14,22 @@ class SaccoSerializer(serializers.ModelSerializer):
 
 
 class MemberProfileSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(source="user.name", read_only=True)
+    membership_number = serializers.CharField(source="user.membership_number", read_only=True)
+    total_savings = serializers.SerializerMethodField()
+    risk_score = serializers.SerializerMethodField()
+
     class Meta:
         model = MemberProfile
         fields = "__all__"
+
+    def get_total_savings(self, obj):
+        total = obj.savings_accounts.aggregate(total=Sum("current_balance"))["total"]
+        return total or 0
+
+    def get_risk_score(self, obj):
+        latest = obj.risk_scores.order_by("-calculated_at").first()
+        return latest.score_value if latest else None
 
 
 class SavingsAccountSerializer(serializers.ModelSerializer):
@@ -43,6 +57,8 @@ class SavingsTransactionSerializer(serializers.ModelSerializer):
         return data
 
 class LoanSerializer(serializers.ModelSerializer):
+    member_name = serializers.CharField(source="member.user.name", read_only=True)
+    amount = serializers.DecimalField(source="principal_amount", max_digits=14, decimal_places=2, read_only=True)
 
     class Meta:
         model = Loan

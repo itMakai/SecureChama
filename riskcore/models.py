@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 
 # =====================================================
@@ -57,11 +58,85 @@ class User(AbstractUser):
             models.UniqueConstraint(
                 fields=['sacco', 'membership_number'],
                 name='unique_membership_per_sacco'
-            )
+            ),
+            models.CheckConstraint(
+                condition=(
+                    models.Q(role='platform_admin', sacco__isnull=True) |
+                    models.Q(role__in=['sacco_admin', 'loan_officer', 'member'], sacco__isnull=False)
+                ),
+                name='role_requires_sacco_except_platform_admin'
+            ),
+
         ]
+
+    def save(self, *args, **kwargs):
+        if self.is_superuser:
+            self.role = 'platform_admin'
+            self.sacco = None
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.username} ({self.role})"
+
+
+class SaccoJoinRequest(models.Model):
+
+    STATUS_CHOICES = (
+        ('pending', 'Pending'),
+        ('approved', 'Approved'),
+        ('rejected', 'Rejected'),
+    )
+
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name="join_request"
+    )
+
+    sacco = models.ForeignKey(
+        Sacco,
+        on_delete=models.CASCADE,
+        related_name="join_requests"
+    )
+
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+
+    reviewed_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="reviewed_join_requests"
+    )
+
+    reviewed_at = models.DateTimeField(null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def approve(self, reviewer):
+        if self.status != "pending":
+            raise ValueError("Only pending requests can be approved.")
+
+        self.status = "approved"
+        self.reviewed_by = reviewer
+        self.reviewed_at = timezone.now()
+
+        self.user.sacco = self.sacco
+        self.user.save()
+
+        self.save()
+
+    def reject(self, reviewer):
+        if self.status != "pending":
+            raise ValueError("Only pending requests can be rejected.")
+
+        self.status = "rejected"
+        self.reviewed_by = reviewer
+        self.reviewed_at = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return f"{self.user.username} → {self.sacco.name}"
 
 
 class AuditLog(models.Model):
@@ -110,17 +185,21 @@ class MemberProfile(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
 
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
+    def save(self, *args, **kwargs):
+        if self.user.sacco != self.sacco:
+            raise ValueError("MemberProfile sacco must match user's sacco.")
+        super().save(*args, **kwargs)
+
     def total_guaranteed_exposure(self):
         from django.db.models import Sum
         from .models import GuarantorRelationship
 
         total = GuarantorRelationship.objects.filter(
-        guarantor=self
-         ).aggregate(total=Sum("guaranteed_amount"))["total"]
+            guarantor=self
+        ).aggregate(total=Sum("guaranteed_amount"))["total"]
 
         return total or 0
-    
 
     def __str__(self):
         return f"Profile: {self.user.username}"
@@ -170,6 +249,19 @@ class SavingsTransaction(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            if self.transaction_type == 'deposit':
+                self.savings_account.current_balance += self.amount
+            elif self.transaction_type == 'withdrawal':
+                if self.savings_account.current_balance < self.amount:
+                    raise ValueError("Insufficient funds.")
+                self.savings_account.current_balance -= self.amount
+
+            self.savings_account.save()
+
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.transaction_type} - {self.amount}"
 
@@ -197,16 +289,30 @@ class Loan(models.Model):
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
+    approved_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="approved_loans"
+    )
+
     disbursed_at = models.DateTimeField(null=True, blank=True)
     due_date = models.DateField(null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
+    def save(self, *args, **kwargs):
+        if self.member.sacco != self.sacco:
+            raise ValueError("Loan sacco must match member sacco.")
+        super().save(*args, **kwargs)
+
     def approve(self, approved_by):
         if self.status != "pending":
             raise ValueError("Only pending loans can be approved.")
 
         self.status = "approved"
+        self.approved_by = approved_by
         self.save()
 
     def __str__(self):
