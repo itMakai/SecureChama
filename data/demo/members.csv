@@ -1,0 +1,25 @@
+username,email,name,phone_number,membership_number,sacco_registration_number,employment_type,monthly_income,status,join_date,password
+imara_mary,mary@imara.demo,Mary Njeri,+254711100001,IM-0001,SC-001,self_employed,120000,active,2025-01-12,DemoPass123
+imara_jane,jane@imara.demo,Jane Wambui,+254711100002,IM-0002,SC-001,salaried,98000,active,2025-02-01,DemoPass123
+imara_grace,grace@imara.demo,Grace Achieng,+254711100003,IM-0003,SC-001,self_employed,76000,active,2025-02-18,DemoPass123
+imara_lucy,lucy@imara.demo,Lucy Atieno,+254711100004,IM-0004,SC-001,contract,64000,active,2025-03-10,DemoPass123
+imara_esther,esther@imara.demo,Esther Chebet,+254711100005,IM-0005,SC-001,salaried,110000,active,2025-04-09,DemoPass123
+imara_ann,ann@imara.demo,Ann Wairimu,+254711100006,IM-0006,SC-001,self_employed,52000,suspended,2025-05-11,DemoPass123
+imara_faith,faith@imara.demo,Faith Nyokabi,+254711100007,IM-0007,SC-001,contract,43000,active,2025-06-03,DemoPass123
+imara_susan,susan@imara.demo,Susan Jelagat,+254711100008,IM-0008,SC-001,salaried,88000,active,2025-06-21,DemoPass123
+jite_mike,mike@jite.demo,Mike Kamau,+254722200001,JT-0001,SC-002,salaried,90000,active,2025-01-20,DemoPass123
+jite_kevin,kevin@jite.demo,Kevin Otieno,+254722200002,JT-0002,SC-002,self_employed,68000,active,2025-02-11,DemoPass123
+jite_brian,brian@jite.demo,Brian Kiptoo,+254722200003,JT-0003,SC-002,contract,57000,active,2025-02-24,DemoPass123
+jite_ruth,ruth@jite.demo,Ruth Njoki,+254722200004,JT-0004,SC-002,self_employed,73000,active,2025-03-08,DemoPass123
+jite_ivy,ivy@jite.demo,Ivy Cherono,+254722200005,JT-0005,SC-002,salaried,101000,active,2025-04-14,DemoPass123
+jite_allan,allan@jite.demo,Allan Mwangi,+254722200006,JT-0006,SC-002,contract,49000,active,2025-05-06,DemoPass123
+jite_dennis,dennis@jite.demo,Dennis Ouma,+254722200007,JT-0007,SC-002,self_employed,61000,blacklisted,2025-05-29,DemoPass123
+jite_mercy,mercy@jite.demo,Mercy Jepkorir,+254722200008,JT-0008,SC-002,salaried,84000,active,2025-06-19,DemoPass123
+afya_peter,peter@afya.demo,Peter Kiplagat,+254733300001,AF-0001,SC-003,salaried,132000,active,2025-01-28,DemoPass123
+afya_carol,carol@afya.demo,Carol Akinyi,+254733300002,AF-0002,SC-003,salaried,118000,active,2025-02-13,DemoPass123
+afya_david,david@afya.demo,David Muli,+254733300003,AF-0003,SC-003,contract,70000,active,2025-02-27,DemoPass123
+afya_nancy,nancy@afya.demo,Nancy Mutheu,+254733300004,AF-0004,SC-003,salaried,94000,active,2025-03-16,DemoPass123
+afya_frank,frank@afya.demo,Frank Rotich,+254733300005,AF-0005,SC-003,self_employed,56000,active,2025-04-02,DemoPass123
+afya_linda,linda@afya.demo,Linda Wafula,+254733300006,AF-0006,SC-003,salaried,108000,active,2025-05-09,DemoPass123
+afya_sam,sam@afya.demo,Sam Maina,+254733300007,AF-0007,SC-003,contract,62000,suspended,2025-06-01,DemoPass123
+afya_brenda,brenda@afya.demo,Brenda Naliaka,+254733300008,AF-0008,SC-003,salaried,97000,active,2025-06-25,DemoPass123

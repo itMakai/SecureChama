@@ -1,0 +1,35 @@
+account_number,transaction_type,amount,reference,created_by_username
+SA-IM-0001,deposit,18000,Initial savings deposit,officer_sc_001
+SA-IM-0001,deposit,12000,Monthly contribution Jan,officer_sc_001
+SA-IM-0001,withdrawal,5000,School fees support,officer_sc_001
+SA-IM-0002,deposit,15000,Initial savings deposit,officer_sc_001
+SA-IM-0002,deposit,12000,Monthly contribution Jan,officer_sc_001
+SA-IM-0003,deposit,14000,Initial savings deposit,officer_sc_001
+SA-IM-0003,withdrawal,3000,Household emergency,officer_sc_001
+SA-IM-0004,deposit,9000,Initial savings deposit,officer_sc_001
+SA-IM-0004,deposit,8000,Monthly contribution Feb,officer_sc_001
+SA-IM-0005,deposit,22000,Initial savings deposit,officer_sc_001
+SA-IM-0006,deposit,7000,Initial savings deposit,officer_sc_001
+SA-IM-0006,withdrawal,2500,Utility expenses,officer_sc_001
+SA-IM-0007,deposit,6500,Initial savings deposit,officer_sc_001
+SA-IM-0008,deposit,17000,Initial savings deposit,officer_sc_001
+SA-JT-0001,deposit,14000,Initial savings deposit,officer_sc_002
+SA-JT-0001,deposit,11000,Monthly contribution Jan,officer_sc_002
+SA-JT-0002,deposit,10500,Initial savings deposit,officer_sc_002
+SA-JT-0002,withdrawal,2000,Medical bill,officer_sc_002
+SA-JT-0003,deposit,8900,Initial savings deposit,officer_sc_002
+SA-JT-0004,deposit,12500,Initial savings deposit,officer_sc_002
+SA-JT-0005,deposit,23000,Initial savings deposit,officer_sc_002
+SA-JT-0006,deposit,7600,Initial savings deposit,officer_sc_002
+SA-JT-0007,deposit,5400,Initial savings deposit,officer_sc_002
+SA-JT-0008,deposit,14900,Initial savings deposit,officer_sc_002
+SA-AF-0001,deposit,26000,Initial savings deposit,officer_sc_003
+SA-AF-0001,deposit,14000,Monthly contribution Jan,officer_sc_003
+SA-AF-0002,deposit,21000,Initial savings deposit,officer_sc_003
+SA-AF-0003,deposit,9800,Initial savings deposit,officer_sc_003
+SA-AF-0004,deposit,13500,Initial savings deposit,officer_sc_003
+SA-AF-0005,deposit,8300,Initial savings deposit,officer_sc_003
+SA-AF-0006,deposit,18900,Initial savings deposit,officer_sc_003
+SA-AF-0007,deposit,6400,Initial savings deposit,officer_sc_003
+SA-AF-0007,withdrawal,1200,Household support,officer_sc_003
+SA-AF-0008,deposit,15800,Initial savings deposit,officer_sc_003

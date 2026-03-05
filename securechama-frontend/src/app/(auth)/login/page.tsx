@@ -3,7 +3,7 @@
 import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/lib/api";
-import { AuthContext } from "@/context/AuthContext";
+import { AuthContext, defaultDashboardRoute } from "@/context/AuthContext";
 import { jwtDecode } from "jwt-decode";
 
 type JwtPayload = {
@@ -34,13 +34,7 @@ export default function LoginPage() {
       const decoded = jwtDecode<JwtPayload>(response.data.access);
       const role = decoded.role;
 
-      if (role === "loan_officer") {
-        router.push("/dashboard/loans");
-      } else if (role === "platform_admin" || role === "sacco_admin") {
-        router.push("/dashboard/members");
-      } else {
-        router.push("/dashboard");
-      }
+      router.push(defaultDashboardRoute(role));
 
     } catch {
       setError("Invalid credentials. Please check username and password.");

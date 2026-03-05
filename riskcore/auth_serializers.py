@@ -10,5 +10,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token["role"] = user.role
         token["sacco_id"] = user.sacco.id if user.sacco else None
         token["name"] = user.name
+        token["username"] = user.username
+        token["email"] = user.email
 
         return token

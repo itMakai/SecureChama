@@ -13,6 +13,11 @@ class Sacco(models.Model):
     contact_email = models.EmailField()
     contact_phone = models.CharField(max_length=20)
     address = models.TextField(blank=True)
+    description = models.TextField(blank=True)
+    benefits = models.TextField(blank=True)
+    membership_requirements = models.TextField(blank=True)
+    terms_of_service = models.TextField(blank=True)
+    base_interest_rate = models.DecimalField(max_digits=5, decimal_places=2, default=0)
 
     subscription_plan = models.CharField(max_length=100, default="basic")
     is_active = models.BooleanField(default=True)
@@ -136,7 +141,7 @@ class SaccoJoinRequest(models.Model):
         self.save()
 
     def __str__(self):
-        return f"{self.user.username} → {self.sacco.name}"
+        return f"{self.user.username} -> {self.sacco.name}"
 
 
 class AuditLog(models.Model):
@@ -201,6 +206,19 @@ class MemberProfile(models.Model):
 
         return total or 0
 
+    @property
+    def debt_to_income_ratio(self):
+        from django.db.models import Sum
+
+        active_debt = self.loans.filter(status="active").aggregate(
+            total=Sum("principal_amount")
+        )["total"] or 0
+
+        if not self.monthly_income:
+            return 100
+
+        return float((active_debt / self.monthly_income) * 100)
+
     def __str__(self):
         return f"Profile: {self.user.username}"
 
@@ -226,6 +244,11 @@ class SavingsAccount(models.Model):
             )
         ]
 
+    def save(self, *args, **kwargs):
+        if self.member.sacco != self.sacco:
+            raise ValueError("Savings account sacco must match member sacco.")
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.account_number
 
@@ -246,11 +269,14 @@ class SavingsTransaction(models.Model):
     transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPES)
     amount = models.DecimalField(max_digits=14, decimal_places=2)
     reference = models.CharField(max_length=255, blank=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         if not self.pk:
+            if self.savings_account.member.sacco_id is None:
+                raise ValueError("Savings account member must belong to a sacco.")
             if self.transaction_type == 'deposit':
                 self.savings_account.current_balance += self.amount
             elif self.transaction_type == 'withdrawal':
@@ -286,6 +312,8 @@ class Loan(models.Model):
     principal_amount = models.DecimalField(max_digits=14, decimal_places=2)
     interest_rate = models.DecimalField(max_digits=5, decimal_places=2)
     term_months = models.IntegerField()
+    purpose = models.CharField(max_length=255, blank=True)
+    repayment_frequency = models.CharField(max_length=30, default="monthly")
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
@@ -332,6 +360,11 @@ class LoanRepayment(models.Model):
     def __str__(self):
         return f"Repayment {self.amount_paid}"
 
+    def save(self, *args, **kwargs):
+        if self.loan.status not in {"approved", "active", "completed", "defaulted"}:
+            raise ValueError("Repayments are only allowed for approved, active, completed, or defaulted loans.")
+        super().save(*args, **kwargs)
+
 
 class GuarantorRelationship(models.Model):
     loan = models.ForeignKey(Loan, on_delete=models.CASCADE, related_name="guarantors")
@@ -339,6 +372,19 @@ class GuarantorRelationship(models.Model):
 
     guaranteed_amount = models.DecimalField(max_digits=14, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["loan", "guarantor"],
+                name="unique_guarantor_per_loan",
+            ),
+        ]
+
+    def save(self, *args, **kwargs):
+        if self.loan.member.sacco != self.guarantor.sacco:
+            raise ValueError("Guarantor and loan member must belong to the same sacco.")
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.guarantor.user.username} guarantees {self.loan.id}"

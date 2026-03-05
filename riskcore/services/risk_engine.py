@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django.db.models import Sum
 from riskcore.models import (
+    GuarantorRelationship,
     SavingsTransaction,
     Loan,
     LoanRepayment,
@@ -49,24 +50,27 @@ class RiskEngine:
         )["total"] or Decimal(0)
 
         if member.monthly_income:
-            dti = (active_loans / member.monthly_income) * 100
+            dti = (active_loans / member.monthly_income) * Decimal(100)
         else:
             dti = Decimal(100)
 
         # -----------------------------
         # Guarantor exposure
         # -----------------------------
-        guarantor_loans = member.loans.count()
-        guarantor_score = max(100 - (guarantor_loans * 10), 0)
+        guarantor_exposure = GuarantorRelationship.objects.filter(
+            guarantor=member
+        ).aggregate(total=Sum("guaranteed_amount"))["total"] or Decimal(0)
+        guarantor_score = max(100 - int(guarantor_exposure / Decimal(10000)), 0)
 
         # -----------------------------
         # Final score
         # -----------------------------
+        safe_dti_component = max(0.0, 100.0 - float(dti))
         final_score = int(
-            (savings_score * 0.3) +
-            (repayment_score * 0.3) +
-            (guarantor_score * 0.2) +
-            (max(0, 100 - dti) * 0.2)
+            (float(savings_score) * 0.3) +
+            (float(repayment_score) * 0.3) +
+            (float(guarantor_score) * 0.2) +
+            (safe_dti_component * 0.2)
         )
 
         risk_band = "low"

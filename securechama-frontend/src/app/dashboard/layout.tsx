@@ -28,7 +28,7 @@ export default function DashboardLayout({
 
       <div className="flex-1 flex flex-col">
         <Navbar
-          userName={auth?.user?.username}
+          userName={auth?.user?.name || auth?.user?.username}
           saccoName={`SACCO ID: ${auth?.user?.sacco_id ?? "N/A"}`}
         />
 

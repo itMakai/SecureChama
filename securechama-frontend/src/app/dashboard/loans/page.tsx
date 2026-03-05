@@ -3,13 +3,23 @@
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
 
+type Loan = {
+  id: number;
+  member_name: string;
+  amount: string;
+  interest_rate: string;
+  term_months: number;
+  status: string;
+  guarantor_count: number;
+};
+
 export default function LoansPage() {
-  const [loans, setLoans] = useState<any[]>([]);
+  const [loans, setLoans] = useState<Loan[]>([]);
 
   useEffect(() => {
     const fetchLoans = async () => {
       const response = await api.get("loans/?status=pending");
-      setLoans(response.data.results);
+      setLoans(response.data.results || response.data);
     };
 
     fetchLoans();
@@ -17,7 +27,7 @@ export default function LoansPage() {
 
   const approveLoan = async (id: number) => {
     await api.post(`loans/${id}/approve/`);
-    setLoans(loans.filter((loan) => loan.id !== id));
+    setLoans((current) => current.filter((loan) => loan.id !== id));
   };
 
   return (
@@ -25,11 +35,9 @@ export default function LoansPage() {
       <div className="mb-6 flex items-center justify-between gap-3">
         <div>
           <h1 className="text-xl font-semibold text-gray-900">Pending Loan Approvals</h1>
-          <p className="mt-1 text-sm text-gray-500">Review pending loans and approve eligible requests.</p>
+          <p className="mt-1 text-sm text-gray-500">Review risk-linked applications and approve eligible requests.</p>
         </div>
-        <p className="rounded-lg bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">
-          {loans.length} pending
-        </p>
+        <p className="rounded-lg bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">{loans.length} pending</p>
       </div>
 
       <div className="space-y-3">
@@ -42,11 +50,14 @@ export default function LoansPage() {
         {loans.map((loan) => (
           <div
             key={loan.id}
-            className="flex items-center justify-between rounded-xl border border-gray-200 p-4 transition hover:border-indigo-200 hover:bg-indigo-50/40"
+            className="flex flex-col gap-4 rounded-xl border border-gray-200 p-4 transition hover:border-indigo-200 hover:bg-indigo-50/40 md:flex-row md:items-center md:justify-between"
           >
             <div>
               <p className="font-medium text-gray-900">{loan.member_name}</p>
-              <p className="text-sm text-gray-500">Amount: KES {loan.amount}</p>
+              <p className="text-sm text-gray-500">
+                KES {loan.amount} | {loan.interest_rate}% | {loan.term_months} months
+              </p>
+              <p className="text-xs text-gray-500">Guarantors: {loan.guarantor_count || 0}</p>
             </div>
 
             <button

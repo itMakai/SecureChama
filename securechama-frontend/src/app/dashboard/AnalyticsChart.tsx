@@ -1,20 +1,16 @@
 "use client";
 
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
-export default function AnalyticsChart({ data }: any) {
+type SavingsGrowthPoint = {
+  month: string;
+  amount: number;
+};
+
+export default function AnalyticsChart({ data }: { data: SavingsGrowthPoint[] }) {
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border">
-      <h2 className="text-lg font-semibold mb-4">
-        Savings Growth
-      </h2>
+    <div className="rounded-2xl border bg-white p-6 shadow-sm">
+      <h2 className="mb-4 text-lg font-semibold">Savings Growth</h2>
 
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>

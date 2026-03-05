@@ -1,0 +1,7 @@
+username,email,name,phone_number,membership_number,sacco_registration_number,role,password
+admin_sc_001,admin001@securechama.demo,Imara Admin,+254700410001,STAFF-IM-ADM,SC-001,sacco_admin,DemoPass123
+officer_sc_001,officer001@securechama.demo,Imara Loan Officer,+254700420001,STAFF-IM-LO,SC-001,loan_officer,DemoPass123
+admin_sc_002,admin002@securechama.demo,Jitegemee Admin,+254700410002,STAFF-JT-ADM,SC-002,sacco_admin,DemoPass123
+officer_sc_002,officer002@securechama.demo,Jitegemee Loan Officer,+254700420002,STAFF-JT-LO,SC-002,loan_officer,DemoPass123
+admin_sc_003,admin003@securechama.demo,Afya Admin,+254700410003,STAFF-AF-ADM,SC-003,sacco_admin,DemoPass123
+officer_sc_003,officer003@securechama.demo,Afya Loan Officer,+254700420003,STAFF-AF-LO,SC-003,loan_officer,DemoPass123

@@ -1,0 +1,12 @@
+loan_ref,guarantor_username,guaranteed_amount
+LN-IM-0001,imara_esther,50000
+LN-IM-0001,imara_susan,30000
+LN-IM-0002,imara_mary,35000
+LN-IM-0003,imara_jane,25000
+LN-JT-0001,jite_ivy,30000
+LN-JT-0001,jite_mercy,20000
+LN-JT-0003,jite_mike,15000
+LN-AF-0001,afya_linda,60000
+LN-AF-0001,afya_brenda,40000
+LN-AF-0002,afya_peter,30000
+LN-AF-0003,afya_carol,25000

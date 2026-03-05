@@ -1,0 +1,11 @@
+loan_ref,amount_paid,payment_date,recorded_by_username
+LN-IM-0001,12000,2025-09-30,officer_sc_001
+LN-IM-0001,12000,2025-10-31,officer_sc_001
+LN-IM-0002,9500,2025-10-31,officer_sc_001
+LN-JT-0001,8000,2025-10-31,officer_sc_002
+LN-JT-0002,15000,2025-09-30,officer_sc_002
+LN-JT-0002,15000,2025-10-31,officer_sc_002
+LN-JT-0003,2000,2025-09-30,officer_sc_002
+LN-AF-0001,14000,2025-10-31,officer_sc_003
+LN-AF-0002,10000,2025-10-31,officer_sc_003
+LN-AF-0003,6500,2025-10-31,officer_sc_003

@@ -1,0 +1,13 @@
+loan_ref,username,sacco_registration_number,principal_amount,interest_rate,term_months,status,purpose,repayment_frequency,approved_by_username,due_date
+LN-IM-0001,imara_mary,SC-001,120000,11.50,24,active,Inventory expansion,monthly,officer_sc_001,2027-12-31
+LN-IM-0002,imara_jane,SC-001,85000,11.25,18,active,Salon equipment,monthly,officer_sc_001,2027-09-30
+LN-IM-0003,imara_grace,SC-001,60000,12.00,12,approved,Emergency household,monthly,officer_sc_001,2027-06-30
+LN-IM-0004,imara_lucy,SC-001,45000,12.25,10,pending,School fees bridge,monthly,,2027-03-31
+LN-JT-0001,jite_mike,SC-002,70000,12.50,14,active,Motorbike repair,monthly,officer_sc_002,2027-08-31
+LN-JT-0002,jite_kevin,SC-002,50000,12.00,12,completed,Small business boost,monthly,officer_sc_002,2026-11-30
+LN-JT-0003,jite_brian,SC-002,40000,13.00,10,defaulted,Medical emergency,monthly,officer_sc_002,2026-10-31
+LN-JT-0004,jite_ruth,SC-002,95000,11.75,18,pending,Startup tooling,monthly,,2027-09-30
+LN-AF-0001,afya_peter,SC-003,140000,10.75,24,active,Clinic expansion,monthly,officer_sc_003,2028-01-31
+LN-AF-0002,afya_carol,SC-003,90000,10.50,18,active,Family housing support,monthly,officer_sc_003,2027-10-31
+LN-AF-0003,afya_david,SC-003,65000,11.25,12,approved,Education support,monthly,officer_sc_003,2027-07-31
+LN-AF-0004,afya_nancy,SC-003,55000,11.00,12,pending,Medical equipment,monthly,,2027-07-31
