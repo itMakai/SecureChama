@@ -1,26 +1,84 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #f3f8fb;
+  --surface: #ffffff;
+  --surface-muted: #f7fbff;
+  --surface-strong: #0f172a;
+  --text: #0b1220;
+  --text-muted: #4a5c74;
+  --border: #d7e3f0;
+  --brand: #0f766e;
+  --brand-strong: #0b5f58;
+  --accent: #f59e0b;
+  --danger: #dc2626;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --font-sans: "Segoe UI", "Inter", "Avenir Next", "Helvetica Neue", sans-serif;
+  --font-mono: "Consolas", "SFMono-Regular", "Menlo", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background:
+    radial-gradient(1000px 500px at 20% -10%, #d6fff5 0%, transparent 65%),
+    radial-gradient(1200px 600px at 100% 0%, #e1efff 0%, transparent 58%),
+    var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", "Inter", "Avenir Next", "Helvetica Neue", sans-serif;
+}
+
+.surface-card {
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+  border: 1px solid var(--border);
+  box-shadow: 0 16px 35px rgba(14, 30, 57, 0.08);
+}
+
+.fin-heading {
+  letter-spacing: -0.02em;
+  color: #081325;
+}
+
+.fin-muted {
+  color: var(--text-muted);
+}
+
+.fin-pill {
+  border: 1px solid #b9deff;
+  background: #eff8ff;
+  color: #0a4a7e;
+}
+
+.fin-grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(115, 147, 179, 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(115, 147, 179, 0.09) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+.fin-fade-up {
+  animation: fade-up 420ms ease-out both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

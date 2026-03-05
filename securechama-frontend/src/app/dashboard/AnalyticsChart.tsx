@@ -9,15 +9,15 @@ type SavingsGrowthPoint = {
 
 export default function AnalyticsChart({ data }: { data: SavingsGrowthPoint[] }) {
   return (
-    <div className="rounded-2xl border bg-white p-6 shadow-sm">
-      <h2 className="mb-4 text-lg font-semibold">Savings Growth</h2>
+    <div className="surface-card rounded-2xl p-6">
+      <h2 className="fin-heading mb-4 text-lg font-bold">Savings Growth</h2>
 
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
           <XAxis dataKey="month" />
           <YAxis />
           <Tooltip />
-          <Line type="monotone" dataKey="amount" stroke="#4f46e5" />
+          <Line type="monotone" dataKey="amount" stroke="#0f766e" strokeWidth={2.5} />
         </LineChart>
       </ResponsiveContainer>
     </div>

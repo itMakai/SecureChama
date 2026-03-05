@@ -15,8 +15,8 @@ const COLOR_MAP: Record<RiskBandPoint["risk_band"], string> = {
 
 export default function RiskBandChart({ data }: { data: RiskBandPoint[] }) {
   return (
-    <div className="rounded-2xl border bg-white p-6 shadow-sm">
-      <h2 className="mb-4 text-lg font-semibold text-gray-900">Risk Band Distribution</h2>
+    <div className="surface-card rounded-2xl p-6">
+      <h2 className="fin-heading mb-4 text-lg font-bold">Risk Band Distribution</h2>
       <ResponsiveContainer width="100%" height={280}>
         <PieChart>
           <Pie data={data} dataKey="count" nameKey="risk_band" cx="50%" cy="50%" outerRadius={90} label>

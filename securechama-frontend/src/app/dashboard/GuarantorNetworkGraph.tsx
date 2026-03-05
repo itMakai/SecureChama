@@ -41,9 +41,9 @@ export default function GuarantorNetworkGraph({ data }: { data: NetworkEdge[] })
   const nodeMap = new Map(allNodes.map((node) => [node.id, node]));
 
   return (
-    <div className="rounded-2xl border bg-white p-6 shadow-sm">
-      <h2 className="mb-4 text-lg font-semibold text-gray-900">Guarantor Network Graph</h2>
-      <div className="overflow-x-auto rounded-xl border border-gray-200 bg-gray-50">
+    <div className="surface-card rounded-2xl p-6">
+      <h2 className="fin-heading mb-4 text-lg font-bold">Guarantor Network Graph</h2>
+      <div className="overflow-x-auto rounded-xl border border-[#d4e3ef] bg-[#f7fbff]">
         <svg width={width} height={height} role="img" aria-label="Guarantor network graph">
           {trimmed.map((edge, index) => {
             const from = nodeMap.get(`g:${edge.guarantor__user__name}`);
@@ -57,7 +57,7 @@ export default function GuarantorNetworkGraph({ data }: { data: NetworkEdge[] })
                 y1={from.y}
                 x2={to.x}
                 y2={to.y}
-                stroke="#94a3b8"
+                stroke="#7ca6c4"
                 strokeWidth={strokeWidth}
                 strokeOpacity={0.7}
               />
@@ -66,15 +66,15 @@ export default function GuarantorNetworkGraph({ data }: { data: NetworkEdge[] })
 
           {allNodes.map((node) => (
             <g key={node.id}>
-              <circle cx={node.x} cy={node.y} r={8} fill={node.type === "guarantor" ? "#0ea5e9" : "#22c55e"} />
-              <text x={node.x + (node.type === "guarantor" ? -12 : 12)} y={node.y + 4} fontSize="11" textAnchor={node.type === "guarantor" ? "end" : "start"} fill="#0f172a">
+              <circle cx={node.x} cy={node.y} r={8} fill={node.type === "guarantor" ? "#0f766e" : "#0b2748"} />
+              <text x={node.x + (node.type === "guarantor" ? -12 : 12)} y={node.y + 4} fontSize="11" textAnchor={node.type === "guarantor" ? "end" : "start"} fill="#0f2340">
                 {node.label}
               </text>
             </g>
           ))}
         </svg>
       </div>
-      <p className="mt-3 text-xs text-gray-500">
+      <p className="fin-muted mt-3 text-xs">
         Left nodes are guarantors, right nodes are borrowers. Thicker links indicate higher guaranteed amount.
       </p>
     </div>

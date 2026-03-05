@@ -52,12 +52,12 @@ export default function DashboardPage() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900">{welcome}</h1>
-          <p className="mt-1 text-sm text-gray-500">Loading SACCO analytics...</p>
+          <h1 className="fin-heading text-3xl font-bold">{welcome}</h1>
+          <p className="fin-muted mt-1 text-sm">Loading SACCO analytics...</p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {Array.from({ length: 4 }).map((_, idx) => (
-            <div key={idx} className="h-28 animate-pulse rounded-2xl border border-gray-200 bg-white" />
+            <div key={idx} className="h-28 animate-pulse rounded-2xl border border-[#d7e4f0] bg-white" />
           ))}
         </div>
       </div>
@@ -65,10 +65,10 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 fin-fade-up">
       <div>
-        <h1 className="text-2xl font-semibold text-gray-900">{welcome}</h1>
-        <p className="mt-1 text-sm text-gray-500">Risk intelligence and portfolio metrics for your SACCO scope.</p>
+        <h1 className="fin-heading text-3xl font-bold">{welcome}</h1>
+        <p className="fin-muted mt-1 text-sm">Risk intelligence and portfolio metrics for your SACCO scope.</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

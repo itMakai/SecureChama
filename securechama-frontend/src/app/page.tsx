@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
 import api from "@/lib/api";
 
 interface Sacco {
@@ -13,18 +14,6 @@ interface Sacco {
   terms_of_service: string;
   base_interest_rate: number;
 }
-
-const CheckIcon = () => (
-  <svg
-    className="mr-2 mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-500"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-  </svg>
-);
 
 export default function LandingPage() {
   const [saccos, setSaccos] = useState<Sacco[]>([]);
@@ -38,97 +27,103 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans selection:bg-blue-100 selection:text-blue-900">
-      <section className="relative overflow-hidden border-b border-slate-200 bg-white">
-        <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
-          <div className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-blue-100 to-emerald-50 opacity-50 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" />
-        </div>
+    <div className="min-h-screen">
+      <section className="fin-grid-bg relative overflow-hidden border-b border-[#d4e5f5]">
+        <div className="mx-auto max-w-7xl px-6 py-16 md:py-24">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.25fr_0.75fr]">
+            <div className="fin-fade-up">
+              <p className="fin-pill inline-flex items-center gap-2 rounded-full px-4 py-1 text-xs font-semibold uppercase tracking-wide">
+                <ShieldCheck size={14} />
+                Regulated Multi-Tenant SACCO Platform
+              </p>
+              <h1 className="fin-heading mt-6 text-4xl font-extrabold leading-tight md:text-6xl">
+                Digital Cooperative Banking.
+                <br />
+                Built for Transparent Lending Risk.
+              </h1>
+              <p className="fin-muted mt-5 max-w-2xl text-base leading-7 md:text-lg">
+                SecureChama helps members discover SACCOs, join seamlessly, and access risk-aware lending while
+                officers and admins monitor portfolio health, guarantor exposure, and savings growth in real time.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  href="/join"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[var(--brand)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[var(--brand-strong)]"
+                >
+                  Join a SACCO <ArrowRight size={16} />
+                </Link>
+                <Link
+                  href="/login"
+                  className="inline-flex items-center gap-2 rounded-xl border border-[#c8ddee] bg-white px-6 py-3 text-sm font-semibold text-[#0b2748] transition hover:bg-[#f5fbff]"
+                >
+                  Access Dashboard
+                </Link>
+              </div>
+            </div>
 
-        <div className="mx-auto max-w-6xl px-6 py-24 text-center sm:py-32">
-          <p className="inline-flex items-center rounded-full bg-slate-100 px-4 py-1.5 text-xs font-semibold tracking-wide text-slate-700 ring-1 ring-inset ring-slate-200">
-            <span className="mr-2 h-2 w-2 rounded-full bg-emerald-500" />
-            Regulated & Secure Platform
-          </p>
-          <h1 className="mt-8 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-6xl">
-            Smarter Savings.
-            <br />
-            <span className="text-blue-600">Fairer Credit.</span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-            Discover SACCOs, compare membership terms, and join a cooperative with transparent risk-aware lending.
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-x-4">
-            <Link
-              href="/join"
-              className="rounded-xl bg-slate-900 px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-slate-800"
-            >
-              Start Membership
-            </Link>
-            <Link
-              href="/login"
-              className="rounded-xl bg-white px-8 py-3.5 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 transition-all hover:bg-slate-50"
-            >
-              Member Login
-            </Link>
+            <div className="surface-card fin-fade-up rounded-3xl p-7">
+              <h2 className="fin-heading text-lg font-bold">Platform Snapshot</h2>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                <div className="rounded-2xl border border-[#d9e8f4] bg-[#f7fcff] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-[#2e5f89]">Active SACCOs</p>
+                  <p className="mt-2 text-2xl font-bold text-[#0a1f3a]">{saccos.length}</p>
+                </div>
+                <div className="rounded-2xl border border-[#d9e8f4] bg-[#f7fcff] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-[#2e5f89]">Risk Engine</p>
+                  <p className="mt-2 text-2xl font-bold text-[#0a1f3a]">Live</p>
+                </div>
+                <div className="rounded-2xl border border-[#d9e8f4] bg-[#f7fcff] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-[#2e5f89]">Tenant Isolation</p>
+                  <p className="mt-2 text-sm font-bold text-[#0a1f3a]">Enforced</p>
+                </div>
+                <div className="rounded-2xl border border-[#d9e8f4] bg-[#f7fcff] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-[#2e5f89]">Audit Coverage</p>
+                  <p className="mt-2 text-sm font-bold text-[#0a1f3a]">End to End</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-24">
-        <div className="mb-12 md:flex md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Available SACCOs</h2>
-            <p className="mt-4 text-lg text-slate-600">Explore benefits, rates, and membership requirements.</p>
-          </div>
-          <div className="mt-4 flex items-center gap-2 md:mt-0">
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-700">
-              {saccos.length}
-            </span>
-            <span className="text-sm font-medium text-slate-600">Active Partners</span>
+      <section className="mx-auto max-w-7xl px-6 py-16">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="inline-flex items-center gap-2 rounded-full bg-[#fff7e8] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#875b07]">
+              <Sparkles size={13} />
+              SACCO Discovery
+            </p>
+            <h2 className="fin-heading mt-3 text-3xl font-bold">Compare and join the right cooperative</h2>
+            <p className="fin-muted mt-2 max-w-2xl">
+              Each SACCO profile includes benefits, base rates, requirements, and terms so members can make informed choices.
+            </p>
           </div>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {saccos.map((sacco) => (
-            <article
-              key={sacco.id}
-              className="group flex flex-col justify-between rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-blue-200"
-            >
-              <div>
-                <div className="flex items-start justify-between gap-4">
-                  <h3 className="line-clamp-2 text-xl font-bold text-slate-900">{sacco.name}</h3>
-                  <span className="inline-flex shrink-0 items-center rounded-full bg-emerald-50 px-3 py-1 text-sm font-bold text-emerald-700 ring-1 ring-inset ring-emerald-600/20">
-                    {sacco.base_interest_rate}% APR
-                  </span>
-                </div>
-
-                <p className="mt-4 text-sm leading-6 text-slate-600">{sacco.description || "No description provided."}</p>
-
-                <div className="mt-6 border-t border-slate-100 pt-6">
-                  <ul className="space-y-3 text-sm text-slate-700">
-                    {(sacco.benefits || "Transparent lending, Risk intelligence, Membership growth").split(",").map((benefit, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <CheckIcon />
-                        <span>{benefit.trim()}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {saccos.map((sacco, idx) => (
+            <article key={sacco.id} className="surface-card fin-fade-up rounded-3xl p-6" style={{ animationDelay: `${idx * 40}ms` }}>
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="fin-heading text-lg font-bold leading-snug">{sacco.name}</h3>
+                <span className="rounded-full bg-[#e9fff7] px-3 py-1 text-xs font-bold text-[#09634e]">
+                  {sacco.base_interest_rate}% APR
+                </span>
               </div>
-
-              <div className="mt-8 space-y-3">
-                <div className="rounded-2xl bg-slate-50 p-4 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-200/50">
-                  <p>Requirements: {sacco.membership_requirements || "See SACCO terms for full criteria."}</p>
-                  <p className="mt-2">Terms: {sacco.terms_of_service || "Available during onboarding."}</p>
-                </div>
-
-                <Link
-                  href={`/join?sacco=${sacco.id}`}
-                  className="block w-full rounded-xl bg-white px-4 py-3 text-center text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 transition-all group-hover:bg-slate-900 group-hover:text-white group-hover:ring-slate-900 hover:bg-slate-50"
-                >
-                  View Details & Join
-                </Link>
+              <p className="fin-muted mt-3 text-sm leading-6">{sacco.description || "No description provided."}</p>
+              <div className="mt-4 rounded-2xl border border-[#dde9f5] bg-[#f8fcff] p-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#2e5f89]">Benefits</p>
+                <p className="mt-1 text-sm text-[#1f3652]">{sacco.benefits || "Transparent lending and member growth support"}</p>
               </div>
+              <div className="mt-3 rounded-2xl border border-[#dde9f5] bg-[#f8fcff] p-3">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#2e5f89]">Requirements</p>
+                <p className="mt-1 text-sm text-[#1f3652]">{sacco.membership_requirements || "See onboarding details."}</p>
+              </div>
+              <Link
+                href={`/join?sacco=${sacco.id}`}
+                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#0b2748] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#14365e]"
+              >
+                View Details & Join
+              </Link>
             </article>
           ))}
         </div>
